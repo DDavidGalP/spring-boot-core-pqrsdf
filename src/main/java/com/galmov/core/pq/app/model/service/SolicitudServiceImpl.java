@@ -7,7 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.galmov.core.pq.app.model.dao.ISolicitudDao;
+import com.galmov.core.pq.app.model.entity.Dependencia;
+import com.galmov.core.pq.app.model.entity.Estado;
 import com.galmov.core.pq.app.model.entity.Solicitud;
+import com.galmov.core.pq.app.model.entity.TipoSolicitud;
 
 @Service
 public class SolicitudServiceImpl implements ISolicitudService {
@@ -37,6 +40,24 @@ public class SolicitudServiceImpl implements ISolicitudService {
 	@Transactional
 	public void delete(Long id) {
 		solicitudDao.deleteById(id);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Estado> findAllEstados() {
+		return solicitudDao.findAllEstados();
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<TipoSolicitud> findAllTipoSolitudes() {
+		return solicitudDao.findAllTipoSolitudes();
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Dependencia> findAllDependencias() {
+		return solicitudDao.findAllDependencias();
 	}
 
 }
