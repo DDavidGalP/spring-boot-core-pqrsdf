@@ -22,52 +22,55 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.galmov.core.pq.app.model.entity.Dependencia;
-import com.galmov.core.pq.app.model.entity.Estado;
+import com.galmov.core.pq.app.model.entity.Seguimiento;
 import com.galmov.core.pq.app.model.entity.Solicitud;
-import com.galmov.core.pq.app.model.entity.TipoSolicitud;
+import com.galmov.core.pq.app.model.service.ISeguimientoService;
 import com.galmov.core.pq.app.model.service.ISolicitudService;
 
 @CrossOrigin(origins= {"http://localhost:4200/"})
 @RestController
 @RequestMapping("/api")
-public class SolicitudRestController {
-
+public class SeguimientoRestController {
+	
+	@Autowired
+	private ISeguimientoService seguimientoService;
+	
 	@Autowired
 	private ISolicitudService solicitudService;
 	
-	@GetMapping("/solicitudes")
-	public List<Solicitud> index() {
-		return solicitudService.findAll();
+	@GetMapping("/seguimientos")
+	public List<Seguimiento> index(){
+		return seguimientoService.findAll();
 	}
 	
-	@GetMapping("/solicitudes/{id}")
+
+	@GetMapping("/seguimientos/{id}")
 	public ResponseEntity<?> show(@PathVariable Long id) {
 		
-		Solicitud solicitud = null;
+		Seguimiento seguimiento = null;
 		Map<String, Object> response = new HashMap<>();
 		
 		try {
-			solicitud = solicitudService.findById(id);
+			seguimiento = seguimientoService.findById(id);
 		} catch(DataAccessException e) {
 			response.put("mensaje", "Error al realizar la consulta en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
-		if(solicitud == null) {
+		if(seguimiento == null) {
 			response.put("mensaje", "la solicitud ID: ".concat(id.toString().concat(" no existe en la base de datos!")));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 		
-		return new ResponseEntity<Solicitud>(solicitud, HttpStatus.OK);
+		return new ResponseEntity<Seguimiento>(seguimiento, HttpStatus.OK);
 	}
 	
-
-	@PostMapping("/solicitudes")
-	public ResponseEntity<?> create(@Valid @RequestBody Solicitud solicitud, BindingResult result) {
+	
+	@PostMapping("/seguimientos")
+	public ResponseEntity<?> create(@Valid @RequestBody Seguimiento seguimiento, BindingResult result) {
 		
-		Solicitud solicitudNew = null;
+		Seguimiento seguimientoNew = null;
 		Map<String, Object> response = new HashMap<>();
 		
 		if(result.hasErrors()) {
@@ -82,25 +85,25 @@ public class SolicitudRestController {
 		}
 		
 		try {
-			solicitudNew = solicitudService.save(solicitud);
+			seguimientoNew = seguimientoService.save(seguimiento);
 		} catch(DataAccessException e) {
 			response.put("mensaje", "Error al realizar el insert en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
-		response.put("mensaje", "La solicitud ha sido creado con éxito!");
-		response.put("solicitud ", solicitudNew);
+		response.put("mensaje", "el seguimiento ha sido creado con éxito!");
+		response.put("solicitud ", seguimientoNew);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 	
 
-	@PutMapping("/solicitudes/{id}")
-	public ResponseEntity<?> update(@Valid @RequestBody Solicitud solicitud, BindingResult result, @PathVariable Long id) {
+	@PutMapping("/seguimientos/{id}")
+	public ResponseEntity<?> update(@Valid @RequestBody Seguimiento seguimiento, BindingResult result, @PathVariable Long id) {
 
-		Solicitud solicitudActual = solicitudService.findById(id);
+		Seguimiento seguimientoActual = seguimientoService.findById(id);
 
-		Solicitud solicitudUpdated = null;
+		Seguimiento seguimientoUpdate = null;
 
 		Map<String, Object> response = new HashMap<>();
 
@@ -115,24 +118,20 @@ public class SolicitudRestController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
 		
-		if (solicitudActual == null) {
-			response.put("mensaje", "Error: no se pudo editar, la solicitud con ID: "
+		if (seguimientoActual == null) {
+			response.put("mensaje", "Error: no se pudo editar, el seguimiento con ID: "
 					.concat(id.toString().concat(" no existe en la base de datos!")));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 
 		try {
 			
-			solicitudActual.setCodigo(solicitud.getCodigo());
-			solicitudActual.setTitulo(solicitud.getTitulo());
-			solicitudActual.setDescripcion(solicitud.getDescripcion());
-			solicitudActual.setFechaSolicitud(solicitud.getFechaSolicitud());
-			solicitudActual.setFechaFinalizado(solicitud.getFechaFinalizado());
-			solicitudActual.setEstado(solicitud.getEstado());
-			solicitudActual.setTipoSolicitud(solicitud.getTipoSolicitud());
-			solicitudActual.setDependencia(solicitud.getDependencia());
+			seguimientoActual.setTitulo(seguimiento.getTitulo());
+			seguimientoActual.setDescripcion(seguimiento.getDescripcion());
+			seguimientoActual.setFechaRealizado(seguimiento.getFechaRealizado());
+		
 			
-			solicitudUpdated = solicitudService.save(solicitudActual);
+			seguimientoUpdate = seguimientoService.save(seguimientoActual);
 
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al actualizar la Solicitud en la base de datos");
@@ -141,18 +140,18 @@ public class SolicitudRestController {
 		}
 
 		response.put("mensaje", "La solicitud ha sido actualizado con éxito!");
-		response.put("solicitud", solicitudUpdated);
+		response.put("solicitud", seguimientoUpdate);
 
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 	
 
-	@DeleteMapping("/solicitudes/{id}")
+	@DeleteMapping("/seguimientos/{id}")
 	public ResponseEntity<?>delete(@PathVariable Long id)
 	 {
 		Map<String, Object> response = new HashMap<>();
 		try {
-			solicitudService.delete(id);
+			seguimientoService.delete(id);
 			
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al eliminar la solicitud en la base de datos");
@@ -165,21 +164,17 @@ public class SolicitudRestController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	
 	}
-	
-	@GetMapping("/solicitudes/estados")
-	public List<Estado>listarEstados(){
-		return solicitudService.findAllEstados();
-	}
-	
-	@GetMapping("/solicitudes/tipo_solicitudes")
-	public List<TipoSolicitud>listarTipoSolicitudes(){
-		return solicitudService.findAllTipoSolitudes();
-	}
-	
-	@GetMapping("/solicitudes/dependencias")
-	public List<Dependencia> listarDependencias(){
-		return solicitudService.findAllDependencias();
-	}
 
+	/*@GetMapping("/seguimientos/solicitudes")
+	public Optional<Seguimiento> findBySolicitudId(Solicitud solicitudId){
+		return seguimientoService.findBySolicitudId(solicitudId);
+	}
 	
+	@GetMapping("/seguimientos/usuarios")
+	public Optional<Seguimiento> findByUsuarioId(Usuario usuarioId){
+		return seguimientoService.findByUsuarioId(usuarioId);
+	}*/
+	
+ 
+
 }
