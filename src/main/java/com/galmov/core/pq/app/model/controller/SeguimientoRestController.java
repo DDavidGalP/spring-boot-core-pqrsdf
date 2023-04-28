@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.galmov.core.pq.app.model.entity.Seguimiento;
 import com.galmov.core.pq.app.model.entity.Solicitud;
+import com.galmov.core.pq.app.model.entity.TipoSolicitud;
 import com.galmov.core.pq.app.model.service.ISeguimientoService;
 import com.galmov.core.pq.app.model.service.ISolicitudService;
 
@@ -163,6 +164,11 @@ public class SeguimientoRestController {
 		response.put("mensaje", "El solpq ha sido eliminado con éxito!");
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	
+	}
+	
+	@GetMapping("/seguimientos/solicitud")
+	public List<Solicitud> listarfindAllSolicitud(){
+		return seguimientoService.findAllSolicitud();
 	}
 
 	/*@GetMapping("/seguimientos/solicitudes")

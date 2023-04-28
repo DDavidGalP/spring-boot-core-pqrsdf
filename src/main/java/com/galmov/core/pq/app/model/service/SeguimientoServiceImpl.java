@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,11 +53,20 @@ public class SeguimientoServiceImpl implements ISeguimientoService{
 		return solicitudDao.findById(id).orElse(null);
 	}
 
+	@Override
+	public List<Solicitud> findAllSolicitud() {
+		return seguimientoDao.findAllSolicitud();
+	}
+
 	
 	/*@Override
+	
+	@Override
 	@Transactional(readOnly = true)
-	public Optional<Seguimiento> findBySolicitudId(Solicitud solicitudId) {
-		return seguimientoDao.findBySolicitudId(solicitudId);
+	public Page<Solicitud> findAll(Pageable pageable) {
+		return solicitudDao.findAll(pageable);
+	}
+
 	}
 	
 	@Override
