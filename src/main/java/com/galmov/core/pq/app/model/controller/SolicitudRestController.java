@@ -185,10 +185,10 @@ public class SolicitudRestController {
 		return solicitudService.findAllTipoSolitudes();
 	}
 	
-	@GetMapping("/solicitudes/dependencias")
+/*	@GetMapping("/solicitudes/dependencias")
 	public List<Dependencia> listarDependencias(){
 		return solicitudService.findAllDependencias();
-	}
+	}*/
 
 	
 }

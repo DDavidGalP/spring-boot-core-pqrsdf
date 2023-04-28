@@ -53,7 +53,7 @@ public class SeguimientoServiceImpl implements ISeguimientoService{
 		return solicitudDao.findById(id).orElse(null);
 	}
 
-	@Override
+	/*@Override
 	public List<Solicitud> findAllSolicitud() {
 		return seguimientoDao.findAllSolicitud();
 	}

@@ -127,8 +127,7 @@ public class SeguimientoRestController {
 
 		try {
 			
-			seguimientoActual.setTitulo(seguimiento.getTitulo());
-			seguimientoActual.setDescripcion(seguimiento.getDescripcion());
+			seguimientoActual.setRespuesta(seguimiento.getRespuesta());
 			seguimientoActual.setFechaRealizado(seguimiento.getFechaRealizado());
 		
 			
