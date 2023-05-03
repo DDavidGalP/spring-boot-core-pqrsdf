@@ -64,11 +64,13 @@ public class Solicitud implements Serializable {
 	@JoinColumn(name = "dependencia_id")
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Dependencia dependencia;
+	
+	
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	/*@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "usuario_id")
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-	private Usuario usuario;
+	private Usuario usuario;*/
 
 	public Date getFechaSolicitud() {
 		return fechaSolicitud;
@@ -142,13 +144,6 @@ public class Solicitud implements Serializable {
 		this.dependencia = dependencia;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
 
 	private static final long serialVersionUID = 1L;
 
