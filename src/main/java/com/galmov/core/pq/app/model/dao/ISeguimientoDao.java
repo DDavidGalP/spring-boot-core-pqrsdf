@@ -2,12 +2,18 @@ package com.galmov.core.pq.app.model.dao;
 
 
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
 import com.galmov.core.pq.app.model.entity.Seguimiento;
+import com.galmov.core.pq.app.model.entity.Solicitud;
 
 
 public interface ISeguimientoDao extends JpaRepository<Seguimiento, Long>{
 
+	
 	/*	
 	@Query("from solicitud")
 	public List<Solicitud> findAllSolicitudes();

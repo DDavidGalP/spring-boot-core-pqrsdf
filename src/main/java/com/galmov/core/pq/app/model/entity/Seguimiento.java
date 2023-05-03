@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -42,11 +43,13 @@ public class Seguimiento implements Serializable {
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Solicitud solicitud;
 
+	/*
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "usuario_id")
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-	private Usuario usuario;
+	private Usuario usuario;*/
 
+	
 	public Long getId() {
 		return id;
 	}
@@ -80,13 +83,6 @@ public class Seguimiento implements Serializable {
 		this.solicitud = solicitud;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
 
 	private static final long serialVersionUID = 1L;
 }

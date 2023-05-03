@@ -49,14 +49,25 @@ public class SeguimientoServiceImpl implements ISeguimientoService{
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public Solicitud findSolicitudById(Long id) {
 		return solicitudDao.findById(id).orElse(null);
 	}
+	
+	
+	/* @Override
+	
+	public Solicitud saveSolicitud(Solicitud solicitud) {
+		return solicitudDao.save(solicitud);
+	}
+
+	@Override
+	public void deleteSolicidutId(long id) {
+	solicitudDao.deleteById(null);
+	}
 
 	/*@Override
-	public List<Solicitud> findAllSolicitud() {
-		return seguimientoDao.findAllSolicitud();
-	}
+	
 
 	
 	/*@Override

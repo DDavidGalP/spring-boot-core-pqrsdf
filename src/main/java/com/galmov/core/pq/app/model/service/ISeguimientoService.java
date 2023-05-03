@@ -19,6 +19,9 @@ public interface ISeguimientoService {
 	public Seguimiento save(Seguimiento seguimiento);
 	public void delete(Long id);
 	public Solicitud findSolicitudById(Long id);
+
+	/*public Solicitud saveSolicitud(Solicitud solicitud);
+	public void deleteSolicidutId(long id);
 	//public List<Solicitud> findAllSolicitud();
 	/*Optional<Seguimiento> findBySolicitudId(Solicitud solicitudId);
 	Optional<Seguimiento> findByUsuarioId(Usuario usuarioId);*/
