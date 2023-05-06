@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,13 +28,10 @@ public class Seguimiento implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotEmpty(message = "no puede estar vacio")
-	@Column(nullable = false)
-	private String titulo;
 
 	@NotEmpty(message = "no puede estar vacio")
 	@Column(nullable = false)
-	private String descripcion;
+	private String respuesta;
 
 	@NotNull(message = "no puede estar vacio")
 	@Column(name = "fecha_realizado")
@@ -45,11 +43,13 @@ public class Seguimiento implements Serializable {
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Solicitud solicitud;
 
+	/*
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "usuario_id")
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-	private Usuario usuario;
+	private Usuario usuario;*/
 
+	
 	public Long getId() {
 		return id;
 	}
@@ -58,20 +58,13 @@ public class Seguimiento implements Serializable {
 		this.id = id;
 	}
 
-	public String getTitulo() {
-		return titulo;
+
+	public String getRespuesta() {
+		return respuesta;
 	}
 
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setRespuesta(String respuesta) {
+		this.respuesta = respuesta;
 	}
 
 	public Date getFechaRealizado() {
@@ -90,13 +83,6 @@ public class Seguimiento implements Serializable {
 		this.solicitud = solicitud;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
 
 	private static final long serialVersionUID = 1L;
 }

@@ -1,19 +1,28 @@
 package com.galmov.core.pq.app.model.dao;
 
 
-import java.util.Optional;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import com.galmov.core.pq.app.model.entity.Seguimiento;
 import com.galmov.core.pq.app.model.entity.Solicitud;
-import com.galmov.core.pq.app.model.entity.Usuario;
+
 
 public interface ISeguimientoDao extends JpaRepository<Seguimiento, Long>{
+
 	
-/*	Optional<Seguimiento> findBySolicitudId(Solicitud solicitudId);
+	/*	
+	@Query("from solicitud")
+	public List<Solicitud> findAllSolicitudes();
+
+Optional<Seguimiento> findBySolicitudId(Solicitud solicitudId);
+ * 
+ * @Query("from TipoSolicitud")
+	public List<TipoSolicitud> findAllTipoSolitudes();
+	
 	
 	Optional<Seguimiento> findByUsuarioId(Usuario usuarioId);*/
 

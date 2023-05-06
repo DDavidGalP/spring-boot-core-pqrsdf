@@ -20,10 +20,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.galmov.core.pq.app.model.entity.Estado;
 import com.galmov.core.pq.app.model.entity.Seguimiento;
 import com.galmov.core.pq.app.model.entity.Solicitud;
+import com.galmov.core.pq.app.model.entity.TipoSolicitud;
 import com.galmov.core.pq.app.model.service.ISeguimientoService;
 import com.galmov.core.pq.app.model.service.ISolicitudService;
 
@@ -85,6 +89,8 @@ public class SeguimientoRestController {
 		}
 		
 		try {
+			
+			
 			seguimientoNew = seguimientoService.save(seguimiento);
 		} catch(DataAccessException e) {
 			response.put("mensaje", "Error al realizar el insert en la base de datos");
@@ -95,7 +101,8 @@ public class SeguimientoRestController {
 		response.put("mensaje", "el seguimiento ha sido creado con éxito!");
 		response.put("solicitud ", seguimientoNew);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
-	}
+	}                                                    
+
 	
 
 	@PutMapping("/seguimientos/{id}")
@@ -126,9 +133,9 @@ public class SeguimientoRestController {
 
 		try {
 			
-			seguimientoActual.setTitulo(seguimiento.getTitulo());
-			seguimientoActual.setDescripcion(seguimiento.getDescripcion());
+			seguimientoActual.setRespuesta(seguimiento.getRespuesta());
 			seguimientoActual.setFechaRealizado(seguimiento.getFechaRealizado());
+			seguimientoActual.setSolicitud(seguimiento.getSolicitud());
 		
 			
 			seguimientoUpdate = seguimientoService.save(seguimientoActual);
@@ -163,18 +170,11 @@ public class SeguimientoRestController {
 		response.put("mensaje", "El solpq ha sido eliminado con éxito!");
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	
-	}
-
-	/*@GetMapping("/seguimientos/solicitudes")
-	public Optional<Seguimiento> findBySolicitudId(Solicitud solicitudId){
-		return seguimientoService.findBySolicitudId(solicitudId);
-	}
+	}	
 	
-	@GetMapping("/seguimientos/usuarios")
-	public Optional<Seguimiento> findByUsuarioId(Usuario usuarioId){
-		return seguimientoService.findByUsuarioId(usuarioId);
-	}*/
-	
- 
+                                      
 
+	
+
+	
 }
