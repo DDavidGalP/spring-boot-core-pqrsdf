@@ -9,7 +9,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -40,16 +39,18 @@ public class Seguimiento implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date fechaRealizado;
 
+	@JsonIgnoreProperties(value = { "seguimientos", "hibernateLazyInitializer", "handler" }, allowSetters = true)
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "solicitud_id")
-	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Solicitud solicitud;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "usuario_id")
-	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-	private Usuario usuario;
-
+	/*
+	 * @ManyToOne(fetch = FetchType.LAZY)
+	 * 
+	 * @JoinColumn(name = "usuario_id")
+	 * 
+	 * @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" }) private
+	 * Usuario usuario;
+	 */
 	public Long getId() {
 		return id;
 	}
@@ -88,14 +89,6 @@ public class Seguimiento implements Serializable {
 
 	public void setSolicitud(Solicitud solicitud) {
 		this.solicitud = solicitud;
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
 	}
 
 	private static final long serialVersionUID = 1L;
