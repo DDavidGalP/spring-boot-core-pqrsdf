@@ -28,11 +28,7 @@ public class Seguimiento implements Serializable {
 
 	@NotEmpty(message = "no puede estar vacio")
 	@Column(nullable = false)
-	private String titulo;
-
-	@NotEmpty(message = "no puede estar vacio")
-	@Column(nullable = false)
-	private String descripcion;
+	private String respuesta;
 
 	@NotNull(message = "no puede estar vacio")
 	@Column(name = "fecha_realizado")
@@ -43,14 +39,7 @@ public class Seguimiento implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Solicitud solicitud;
 
-	/*
-	 * @ManyToOne(fetch = FetchType.LAZY)
-	 * 
-	 * @JoinColumn(name = "usuario_id")
-	 * 
-	 * @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" }) private
-	 * Usuario usuario;
-	 */
+	
 	public Long getId() {
 		return id;
 	}
@@ -58,21 +47,13 @@ public class Seguimiento implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public String getTitulo() {
-		return titulo;
+	
+	public String getRespuesta() {
+		return respuesta;
 	}
 
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setRespuesta(String respuesta) {
+		this.respuesta = respuesta;
 	}
 
 	public Date getFechaRealizado() {

@@ -180,7 +180,7 @@ public class SolicitudRestController {
 		return solicitudService.findAllEstados();
 	}
 	
-	@GetMapping("/solicitudes/tipo_solicitudes")
+	@GetMapping("/solicitudes/tipo")
 	public List<TipoSolicitud>listarTipoSolicitudes(){
 		return solicitudService.findAllTipoSolitudes();
 	}
