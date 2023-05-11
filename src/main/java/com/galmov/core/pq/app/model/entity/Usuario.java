@@ -2,21 +2,28 @@ package com.galmov.core.pq.app.model.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.persistence.JoinColumn;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "usuario")
+@Table(name = "usuarios")
 public class Usuario implements Serializable {
 
 	@Id
@@ -37,9 +44,23 @@ public class Usuario implements Serializable {
 	@Email
 	private String email;
 
-
 	private Boolean bloqueado;
 	private Boolean activado;
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name="usuarios_roles", joinColumns= @JoinColumn(name="usuario_id"),
+	inverseJoinColumns=@JoinColumn(name="role_id"),
+	uniqueConstraints= {@UniqueConstraint(columnNames= {"usuario_id", "role_id"})})
+	private List<Role> roles;
+
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
 
 	public Long getId() {
 		return id;
@@ -88,7 +109,7 @@ public class Usuario implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public Boolean getBloqueado() {
 		return bloqueado;
 	}
@@ -104,7 +125,6 @@ public class Usuario implements Serializable {
 	public void setActivado(Boolean activado) {
 		this.activado = activado;
 	}
-
 
 	/**
 	 * 
