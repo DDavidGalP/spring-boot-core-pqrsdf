@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -39,17 +40,20 @@ public class SolicitudRestController {
 	@Autowired
 	private ISolicitudService solicitudService;
 	
+	@Secured({"ROLE_ADMIN", "ROLE_USER"})
 	@GetMapping("/solicitudes")
 	public List<Solicitud> index() {
 		return solicitudService.findAll();
 	}
 	
+	@Secured({"ROLE_ADMIN", "ROLE_USER"})
 	@GetMapping("/solicitudes/page/{page}")
 	public Page<Solicitud> index(@PathVariable Integer page) {
 		Pageable pageable = PageRequest.of(page, 4);
 		return solicitudService.findAll(pageable);
 	}
 	
+	@Secured({"ROLE_ADMIN", "ROLE_USER"})
 	@GetMapping("/solicitudes/{id}")
 	public ResponseEntity<?> show(@PathVariable Long id) {
 		
@@ -73,6 +77,7 @@ public class SolicitudRestController {
 	}
 	
 
+	@Secured({"ROLE_ADMIN", "ROLE_USER"})
 	@PostMapping("/solicitudes")
 	public ResponseEntity<?> create(@Valid @RequestBody Solicitud solicitud, BindingResult result) {
 		

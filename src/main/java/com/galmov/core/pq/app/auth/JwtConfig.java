@@ -1,6 +1,5 @@
 package com.galmov.core.pq.app.auth;
 
-
 public class JwtConfig {
 	public static final String LLAVE_SECRETA = "alguna.clave.secreta.12345678";
 	
@@ -41,4 +40,5 @@ public class JwtConfig {
 			"/Y+PO4aj7c2JaQ2BtQvw9ZmlQmIARlrD2wTfkld/gnsah9KPAUGzSK2Am2jiTTVn\r\n" + 
 			"XwIDAQAB\r\n" + 
 			"-----END PUBLIC KEY-----";
+
 }

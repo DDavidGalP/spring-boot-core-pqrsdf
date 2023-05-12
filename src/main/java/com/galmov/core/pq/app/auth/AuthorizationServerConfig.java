@@ -1,6 +1,5 @@
 package com.galmov.core.pq.app.auth;
 
-
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,5 @@
 package com.galmov.core.pq.app.auth;
 
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +12,8 @@ import org.springframework.stereotype.Component;
 
 import com.galmov.core.pq.app.model.entity.Usuario;
 import com.galmov.core.pq.app.model.service.IUsuarioService;
+
+
 
 @Component
 public class InfoAdicionalToken implements TokenEnhancer{

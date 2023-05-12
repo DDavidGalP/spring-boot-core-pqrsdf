@@ -1,4 +1,5 @@
 package com.galmov.core.pq.app.auth;
+
 import java.util.Arrays;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -20,7 +21,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/solicitudes", "/api/solicitudes/page/**").permitAll()
+		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/clientes", "/api/clientes/page/**", "/api/uploads/img/**", "/images/**").permitAll()
 		/*.antMatchers(HttpMethod.GET, "/api/clientes/{id}").hasAnyRole("USER", "ADMIN")
 		.antMatchers(HttpMethod.POST, "/api/clientes/upload").hasAnyRole("USER", "ADMIN")
 		.antMatchers(HttpMethod.POST, "/api/clientes").hasRole("ADMIN")
@@ -28,7 +29,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		.anyRequest().authenticated()
 		.and().cors().configurationSource(corsConfigurationSource());
 	}
-	//http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/solicitudes", "/api/solicitudes/page/**", "/api/uploads/img/**", "/images/**").permitAll()
 	
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
@@ -49,5 +49,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
 		return bean;
 	}
-}
 
+	
+}
