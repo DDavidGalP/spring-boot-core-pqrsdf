@@ -20,9 +20,12 @@ public class SpringBootCorePqrsdfApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		String password = "12345";
 		
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 2; i++) {
 			String passwordBcrypt = passwordEncoder.encode(password);
-			System.out.println(passwordBcrypt);
+			System.out.println("Inicio de clave");
+			System.out.println("->" + passwordBcrypt);
+			System.out.println("------------------------");
+			
 		}
 		
 	}

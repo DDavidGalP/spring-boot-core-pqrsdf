@@ -1,7 +1,6 @@
 package com.galmov.core.pq.app.model.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,11 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+
 import javax.persistence.JoinColumn;
 import javax.persistence.UniqueConstraint;
 
@@ -36,31 +31,20 @@ public class Usuario implements Serializable {
 	@Column(length = 60)
 	private String password;
 
+	private Boolean enabled;
+	
 	private String nombre;
-
+	
 	private String apellido;
-
-	@NotEmpty
-	@Email
+	
+	@Column(unique = true)
 	private String email;
-
-	private Boolean bloqueado;
-	private Boolean activado;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name="usuarios_roles", joinColumns= @JoinColumn(name="usuario_id"),
 	inverseJoinColumns=@JoinColumn(name="role_id"),
 	uniqueConstraints= {@UniqueConstraint(columnNames= {"usuario_id", "role_id"})})
 	private List<Role> roles;
-
-
-	public List<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
-	}
 
 	public Long getId() {
 		return id;
@@ -84,6 +68,22 @@ public class Usuario implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
 	}
 
 	public String getNombre() {
@@ -110,25 +110,8 @@ public class Usuario implements Serializable {
 		this.email = email;
 	}
 
-	public Boolean getBloqueado() {
-		return bloqueado;
-	}
-
-	public void setBloqueado(Boolean bloqueado) {
-		this.bloqueado = bloqueado;
-	}
-
-	public Boolean getActivado() {
-		return activado;
-	}
-
-	public void setActivado(Boolean activado) {
-		this.activado = activado;
-	}
-
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
 }

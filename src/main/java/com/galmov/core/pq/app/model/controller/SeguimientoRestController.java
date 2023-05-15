@@ -2,6 +2,7 @@ package com.galmov.core.pq.app.model.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,18 +24,21 @@ public class SeguimientoRestController {
 	@Autowired
 	private ISolicitudService solicitudService;
 	
+	@Secured({"ROLE_ADMIN", "ROLE_TECNICO"})
 	@GetMapping("/seguimientos/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public Seguimiento show(@PathVariable Long id) {
 		return solicitudService.findSeguimientoById(id);
 	}
 	
-	
+	@Secured({"ROLE_ADMIN", "ROLE_TECNICO"})
 	@PostMapping("/seguimientos")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Seguimiento crear(@RequestBody Seguimiento seguimiento) {
 		return solicitudService.saveSeguimiento(seguimiento);
 	}
+	
+	@Secured({"ROLE_ADMIN", "ROLE_TECNICO"})
 	@DeleteMapping("/seguimientos/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable Long id) {

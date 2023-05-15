@@ -45,9 +45,8 @@ public class UsuarioService implements IUsuarioService, UserDetailsService{
 				.peek(authority -> logger.info("Role: " + authority.getAuthority()))
 				.collect(Collectors.toList());
 		
-		return new User(usuario.getUsername(), usuario.getPassword(), usuario.getActivado(), true, true, true, authorities);
+		return new User(usuario.getUsername(), usuario.getPassword(), usuario.getEnabled(), true, true, true, authorities);
 	}
-
 	@Override
 	@Transactional(readOnly=true)
 	public Usuario findByUsername(String username) {
